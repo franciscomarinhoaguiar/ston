@@ -1,50 +1,129 @@
 package br.com.stone.model;
+
 import java.util.Date;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;  
+import java.util.Date; 
+
 public class Employee {
-	
-//	"matricula": "0008601",
-//	"nome": "Taylor Mccarthy",
-//	"area": "Relacionamento com o Cliente", 
-//	"cargo": "Auxiliar de Ouvidoria", 
-//	"salario_bruto": "R$ 1.800,16",
-//	"data_de_admissao": "2017-03-31"
-	
+
 	public String matricula;
 	public String nome;
 	public String area;
 	public String cargo;
 	public String salario_bruto;
 	public String data_de_admissao;
-	
-	
-	public  double calculate(){
-		return 0;
-	}
-	
-	public String toString(){
-		return matricula + "\n" + nome + "\n"+ area + "\n"+ cargo + "\n"+salario_bruto+ "\n"+ data_de_admissao;
-	}
-	
-	private int getFeeByArea(){
-		if (this.area.equals(EnumArea.Diretoria)){
-			return 1;
-			
-		}
-		
-		if (this.area.equals(EnumArea.Contabilidade) ||
-				this.area.equals(EnumArea.Financeiro) ||
-				this.area.equals(EnumArea.Tecnologia)){
-			return 2;
-			
-		}
-		if (this.area.equals(EnumArea.SGeral)){
-			return 3;
-			
-		}else{
-			return 5;
-		}
-		
-		
+	public static final int BASE_SALARY = 1040;
+
+	public double calculate() {
+		double salary = getSalary(this.salario_bruto);
+		System.out.println("salary:"+salary);
+		int feeByDate = getFeeByDate();
+		System.out.println("feeByDate:"+feeByDate);
+		double f1 = salary * feeByDate;
+		int feeByArea =  getFeeByArea();
+		System.out.println("feeByArea:"+feeByArea);
+		double f2 = salary * feeByArea;
+		double sum = f1 + f2;
+		int feeBySalary = getFeeBySalary();
+		System.out.println("feeBySalary:"+feeBySalary);
+		double div = sum/feeBySalary;
+		double result = div * 12;
+		return result;
 	}
 
+	public String toString() {
+		return matricula + "\n" + nome + "\n" + area + "\n" + cargo + "\n" + salario_bruto + "\n" + data_de_admissao;
+	}
+
+	
+	private int getFeeByArea() {
+		if (this.area.equals(EnumArea.Diretoria.name())) {
+			return 1;
+
+		}
+
+		if (this.area.equals(EnumArea.Contabilidade.name()) || this.area.equals(EnumArea.Financeiro.name())
+				|| this.area.equals(EnumArea.Tecnologia.name())) {
+			return 2;
+
+		}
+		if (this.area.equals("Serviços Gerais")) {
+			return 3;
+
+		} else {
+			return 5;
+		}
+
+	}
+	
+	
+
+	private int getFeeBySalary() {
+
+		if (this.cargo.equals("Estagiário")) {
+			return 1;
+
+		}
+		if (getSalary(this.salario_bruto) >= (8 * BASE_SALARY)) {
+			return 5;
+		}
+
+		if (getSalary(this.salario_bruto) >= (5 * BASE_SALARY) && getSalary(this.salario_bruto) < (8 * BASE_SALARY)) {
+			return 3;
+		}
+		if (getSalary(this.salario_bruto) > (3 * BASE_SALARY) && getSalary(this.salario_bruto) < (5 * BASE_SALARY)) {
+			return 2;
+		}else{
+			return 1;
+		}
+	
+	}
+	
+	private int getFeeByDate() {
+		Date today = new Date();
+		Date date_adm = getDate(this.data_de_admissao);
+		int diff = today.getYear() - date_adm.getYear();
+		
+
+		if (diff<=1) {
+			return 1;
+
+		}
+		if (diff >1 && diff<3) {
+			return 2;
+		}
+		if (diff >=3 && diff<8) {
+			return 3;
+		}
+		return 5;
+	
+	}
+
+	private double getSalary(String salary) {
+		salary = salary.substring(3);
+		salary = salary.replaceAll("\\.", "");
+		salary = salary.replaceAll("\\,", ".");
+		Double s = Double.parseDouble(salary);
+		return s;
+	}
+	
+	private Date getDate(String date_adm){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		 try {
+	            date = formatter.parse(date_adm);
+	           
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
+		 return date;
+	}
+
+	
 }

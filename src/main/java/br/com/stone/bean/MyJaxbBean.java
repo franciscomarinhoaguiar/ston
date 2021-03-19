@@ -9,30 +9,26 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class MyJaxbBean {
 	 @XmlElement(name="Participacoes")
-	 public ArrayList<Employee> func;
-	 
-	 @XmlTransient
-	    public int age;
-	 
+	 public ArrayList<EmployeeBean> func;
 	   @XmlElement(name="total_de_funcionarios")
 	    public int totalFuncionarios;
 	   
 	   @XmlElement(name="total_distribuido")
-	    public int totalDistribuido;
+	    public String totalDistribuido;
 	   
 	   @XmlElement(name="total_disponibilizado")
-	    public int totalDisponibilizado;
+	    public String totalDisponibilizado;
 	   
 	  
 	   @XmlElement(name="saldo_total_disponibilizado")
-	    public int saldoTotalDisponibilizado;
+	    public String saldoTotalDisponibilizado;
 	   
 	 
 	    public MyJaxbBean() {} // JAXB needs this
 	 
-	    public MyJaxbBean(ArrayList<Employee> func, int age) {
+	    public MyJaxbBean(ArrayList<EmployeeBean> func) {
 	        this.func = func;
-	        this.age = age;
+	      
 	    }
 
 }

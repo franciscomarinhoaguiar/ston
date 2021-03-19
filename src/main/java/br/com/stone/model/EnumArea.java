@@ -8,3 +8,4 @@ public enum EnumArea {
   SGeral,
   RCliente
 }
+

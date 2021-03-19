@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Employee {
+public class EmployeeBean {
 	@XmlElement(name="matricula")
 	public String matricula;
 	@XmlElement(name="nome")
@@ -12,7 +12,7 @@ public class Employee {
 	@XmlElement(name="valor_da_participação")
 	public String valor;
 	
-	public Employee(){
+	public EmployeeBean(){
 		
 	}
 
