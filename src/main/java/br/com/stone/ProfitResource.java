@@ -51,7 +51,7 @@ public class ProfitResource {
 			employeeBean.matricula = employee.matricula;
 			employeeBean.nome = employee.nome;
 			bonus = employee.calculate();
-			System.out.println("-----------------------");
+		
 			total += bonus;
 			employeeBean.valor = currency.format(bonus);
 			func.add(employeeBean);
