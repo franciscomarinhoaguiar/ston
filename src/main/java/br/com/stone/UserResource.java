@@ -21,6 +21,11 @@ import java.util.List;
 public class UserResource {
 	private AppController controller = AppController.getInstance();
 	
+	/**
+	 *  Method handling HTTP POST requests. Save the user.
+	 * @param body - New user - Json Format
+	 */
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addUser(String body) {
@@ -38,7 +43,10 @@ public class UserResource {
 		}
 	   
 	}
-	
+	/**
+	 *  Method handling HTTP GET requests. List the users.
+	 * 
+	 */
 	@GET
     @Produces({MediaType.APPLICATION_JSON })
     public List<Employee> getTodos() {

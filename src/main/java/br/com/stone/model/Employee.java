@@ -1,13 +1,7 @@
 package br.com.stone.model;
 
-import java.util.Date;
-import java.text.NumberFormat;
-import java.util.Locale;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.SimpleDateFormat;  
 import java.util.Date; 
 
 public class Employee {
@@ -20,6 +14,12 @@ public class Employee {
 	public String data_de_admissao;
 	public static final int BASE_SALARY = 1040;
 
+
+	/**
+	 * Calculate the bonus for the employee
+	 * @return
+	 */
+	
 	public double calculate() {
 		double salary = getSalary(this.salario_bruto);
 		System.out.println("salary:"+salary);
@@ -37,11 +37,17 @@ public class Employee {
 		return result;
 	}
 
+	/**
+	 * Print employee information
+	 */
 	public String toString() {
 		return matricula + "\n" + nome + "\n" + area + "\n" + cargo + "\n" + salario_bruto + "\n" + data_de_admissao;
 	}
 
-	
+	/**
+	 * Get the fee by area
+	 * @return fee
+	 */
 	private int getFeeByArea() {
 		if (this.area.equals(EnumArea.Diretoria.name())) {
 			return 1;
@@ -64,6 +70,10 @@ public class Employee {
 	
 	
 
+	/**
+	 *  Get fee by salary
+	 * @return fee
+	 */
 	private int getFeeBySalary() {
 
 		if (this.cargo.equals("Estagiário")) {
@@ -84,7 +94,10 @@ public class Employee {
 		}
 	
 	}
-	
+	/**
+	 * Get fee by date
+	 * @return fee
+	 */
 	private int getFeeByDate() {
 		Date today = new Date();
 		Date date_adm = getDate(this.data_de_admissao);
@@ -105,6 +118,11 @@ public class Employee {
 	
 	}
 
+	/**
+	 * Parse salary(String) to double
+	 * @param salary
+	 * @return salary
+	 */
 	private double getSalary(String salary) {
 		salary = salary.substring(3);
 		salary = salary.replaceAll("\\.", "");
@@ -113,6 +131,11 @@ public class Employee {
 		return s;
 	}
 	
+	/**
+	 * Parse a date(String) to date
+	 * @param date_adm
+	 * @return date object
+	 */
 	private Date getDate(String date_adm){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
